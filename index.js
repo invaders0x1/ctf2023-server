@@ -11,6 +11,30 @@ app.use(express.json())
 // Available Routes
 app.use('/api/auth', require('./routes/auth'))
 
+app.get("/login", function(req,res) {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.get("/register", function(req,res) {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.get("/about", function(req,res) {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.get("/instructions", function(req,res) {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.get("/challenges", function(req,res) {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.get("/hackerboard", function(req,res) {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
 app.listen(port, () => {
   console.log(`Backend listening on port ${port}`)
 })
