@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const User = require("../models/User");
+const Flag = require("../models/Flag");
 const bcrypt = require("bcrypt");
 var jwt = require('jsonwebtoken');
 var fetchuser = require('../middleware/fetchuser');
@@ -114,19 +115,30 @@ router.post('/getuser', fetchuser, async (req, res) => {
 router.post('/updatescore', fetchuser, async (req, res) => {
 
     var success = false;
-
+    var already = false;
     try {
         let userId = req.user.id;
         let qid = req.body.question;
-        let child = 'question'+qid
+        let child = 'question' + qid
         let userData = await User.findById(userId);
-        if (!userData[child]){
-            userData[child] = true;
-            userData.points += 100;
-            await User.updateOne({_id: req.user.id}, userData)
-            success = true;
+        let flagData = await Flag.findOne({ question: qid })
+        if (flagData.flag == req.body.flag) {
+            if (!userData[child]) {
+                userData[child] = true;
+                userData.points += 100;
+                await User.updateOne({ _id: req.user.id }, userData)
+                success = true;
+                res.status(200).json({ success, already, points: userData.points });
+            }
+            else {
+                success = true;
+                already = true;
+                res.status(200).json({ success, already, points: userData.points });
+            }
         }
-        res.status(200).json({success, points: userData.points});
+        else {
+            res.status(200).json({ success, points: userData.points });
+        }
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
@@ -143,7 +155,7 @@ router.get('/getscoreboard', fetchuser, async (req, res) => {
         let userData = await User.find()
         tempData = []
         userData.forEach(item => {
-            tempData.push({name: item.name, points: item.points})
+            tempData.push({ name: item.name, points: item.points })
         })
 
         success = true;
