@@ -102,12 +102,37 @@ router.post('/getuser', fetchuser, async (req, res) => {
     try {
         let userId = req.user.id;
         let user = await User.findById(userId).select("-password");
-        res.send(user);
+        res.send(user)
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
     }
 
 })
+
+// ROUTE 3: Update score using: POST "/api/auth/updatescore". Requires auth
+router.post('/updatescore', fetchuser, async (req, res) => {
+
+    var success = false;
+
+    try {
+        let userId = req.user.id;
+        let qid = req.body.question;
+        let child = 'question'+qid
+        let userData = await User.findById(userId);
+        if (!userData[child]){
+            userData[child] = true;
+            userData.points += 100;
+            await User.updateOne({_id: req.user.id}, userData)
+            success = true;
+        }
+        res.json({success, points: userData.points});
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+
+})
+
 
 module.exports = router;
