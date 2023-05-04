@@ -126,7 +126,28 @@ router.post('/updatescore', fetchuser, async (req, res) => {
             await User.updateOne({_id: req.user.id}, userData)
             success = true;
         }
-        res.json({success, points: userData.points});
+        res.status(200).json({success, points: userData.points});
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+
+})
+
+// ROUTE 3: Get scoreboard using: GET "/api/auth/getscoreboard". Requires auth
+router.get('/getscoreboard', fetchuser, async (req, res) => {
+
+    var success = false;
+
+    try {
+        let userData = await User.find()
+        tempData = []
+        userData.forEach(item => {
+            tempData.push({name: item.name, points: item.points})
+        })
+
+        success = true;
+        res.status(200).json(tempData)
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
