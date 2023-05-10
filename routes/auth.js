@@ -122,6 +122,12 @@ router.post('/updatescore', fetchuser, async (req, res) => {
         let child = 'question' + qid
         let userData = await User.findById(userId);
         let flagData = await Flag.findOne({ question: qid })
+        // await Flag.create({
+        //     question: qid,
+        //     flag: req.body.flag,
+        // });
+        // success = true
+        // res.status(200).json({ success })
         if (flagData.flag == req.body.flag) {
             if (!userData[child]) {
                 userData[child] = true;

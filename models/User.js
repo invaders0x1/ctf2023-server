@@ -79,6 +79,26 @@ const UserSchema = new Schema({
         type: Boolean,
         default: false
     },
+    question16: {
+        type: Boolean,
+        default: false
+    },
+    question17: {
+        type: Boolean,
+        default: false
+    },
+    question18: {
+        type: Boolean,
+        default: false
+    },
+    question19: {
+        type: Boolean,
+        default: false
+    },
+    question20: {
+        type: Boolean,
+        default: false
+    },
     date: {
         type: Date,
         default: Date.now
