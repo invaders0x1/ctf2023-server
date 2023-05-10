@@ -131,7 +131,7 @@ router.post('/updatescore', fetchuser, async (req, res) => {
         if (flagData.flag == req.body.flag) {
             if (!userData[child]) {
                 userData[child] = true;
-                // userData.points += 100;
+                userData.points += 100;
                 await User.updateOne({ _id: req.user.id }, userData)
                 success = true;
                 res.status(200).json({ success, already, points: userData.points });
