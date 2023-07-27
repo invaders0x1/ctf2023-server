@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.2431a1de.css",
-    "main.js": "/static/js/main.cbf25ade.js",
+    "main.css": "/static/css/main.ffa0de8e.css",
+    "main.js": "/static/js/main.0022980f.js",
     "static/media/bg.png": "/static/media/bg.48d1fcb9e51c9506ceb4.png",
     "static/media/404.gif": "/static/media/404.bc36a41b896a276c52a7.gif",
     "static/media/Doctor Glitch.otf": "/static/media/Doctor Glitch.dba195ec081494ebf1e4.otf",
     "static/media/bg--world.png": "/static/media/bg--world.e2b7596d50779caae81c.png",
     "static/media/PhelixBoomgartner.otf": "/static/media/PhelixBoomgartner.a83cf6289b12300bcf84.otf",
     "index.html": "/index.html",
-    "main.2431a1de.css.map": "/static/css/main.2431a1de.css.map",
-    "main.cbf25ade.js.map": "/static/js/main.cbf25ade.js.map"
+    "main.ffa0de8e.css.map": "/static/css/main.ffa0de8e.css.map",
+    "main.0022980f.js.map": "/static/js/main.0022980f.js.map"
   },
   "entrypoints": [
-    "static/css/main.2431a1de.css",
-    "static/js/main.cbf25ade.js"
+    "static/css/main.ffa0de8e.css",
+    "static/js/main.0022980f.js"
   ]
 }
