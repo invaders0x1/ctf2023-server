@@ -27,7 +27,7 @@ router.post("/register", [
     try {
         let user = await User.findOne({ email: req.body.email });
         if (user) {
-            return res.status(400).json({ error: 'Sorry, an user with this email already exists' })
+            return res.status(400).json({ success, error: 'Sorry, an user with this email already exists' })
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -152,7 +152,7 @@ router.post('/updatescore', fetchuser, async (req, res) => {
 
 })
 
-// ROUTE 3: Get scoreboard using: GET "/api/auth/getscoreboard". Requires auth
+// ROUTE 4: Get scoreboard using: GET "/api/auth/getscoreboard". Requires auth
 router.get('/getscoreboard', fetchuser, async (req, res) => {
 
     var success = false;
