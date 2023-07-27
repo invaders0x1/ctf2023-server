@@ -71,12 +71,12 @@ router.post("/login", [
     try {
         const user = await User.findOne({ email: req.body.email });
         if (!user) {
-            return res.status(400).json({ error: 'Invalid credentials' });
+            return res.status(400).json({ success, error: 'Invalid credentials' });
         }
 
         const validated = await bcrypt.compare(req.body.password, user.password);
         if (!validated) {
-            return res.status(400).json({ error: 'Invalid credentials' });
+            return res.status(400).json({ success, error: 'Invalid credentials' });
         }
 
         // const { password, ...others } = user._doc;
