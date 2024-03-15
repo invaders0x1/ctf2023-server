@@ -33,11 +33,18 @@ router.post("/register", [
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(req.body.password, salt);
 
-        user = await User.create({
+        const newUser = new User({
             name: req.body.name,
             email: req.body.email,
             password: hashedPass,
         });
+        for (let i = 1; i <= 20; i++) {
+            newUser.questions.set(i.toString(), {
+                solved: false,
+                timestamp: new Date()
+            });
+        };
+        user = await User.create(newUser);
 
         const data = {
             user: {
@@ -119,7 +126,6 @@ router.post('/updatescore', fetchuser, async (req, res) => {
     try {
         let userId = req.user.id;
         let qid = req.body.question;
-        let child = 'question' + qid
         let userData = await User.findById(userId);
         let flagData = await Flag.findOne({ question: qid })
         // await Flag.create({
@@ -129,8 +135,9 @@ router.post('/updatescore', fetchuser, async (req, res) => {
         // success = true
         // res.status(200).json({ success })
         if (flagData.flag == req.body.flag) {
-            if (!userData[child]) {
-                userData[child] = true;
+            if (!userData.questions.get(qid).solved) {
+                userData.questions.get(qid).solved = true;
+                userData.questions.get(qid).timestamp = new Date();
                 userData.points += 100;
                 await User.updateOne({ _id: req.user.id }, userData)
                 success = true;
