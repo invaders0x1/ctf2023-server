@@ -42,6 +42,7 @@ app.listen(port, () => {
 })
 
 const mongoose = require('mongoose');
+mongoose.set("strictQuery", false);
 const mongoURI = process.env.MONGODB_URI;
 // const mongoURI = "mongodb://localhost:27017/invaders0x1"
 
