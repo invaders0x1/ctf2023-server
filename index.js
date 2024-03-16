@@ -40,8 +40,8 @@ app.listen(port, () => {
 })
 
 const mongoose = require('mongoose');
-// const mongoURI = "mongodb+srv://farman:farmansk%40786@cluster0.hayzr7h.mongodb.net/invaders0x1"
-const mongoURI = "mongodb://localhost:27017/invaders0x1"
+const mongoURI = "mongodb+srv://farman:farmansk%40786@cluster0.hayzr7h.mongodb.net/invaders0x1"
+// const mongoURI = "mongodb://localhost:27017/invaders0x1"
 
 mongoose.connect(mongoURI, () => {
   console.log("Connected to Mongo Successfully");
