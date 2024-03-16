@@ -38,7 +38,7 @@ router.post("/register", [
             email: req.body.email,
             password: hashedPass,
         });
-        for (let i = 1; i <= 20; i++) {
+        for (let i = 1; i <= 30; i++) {
             newUser.questions.set(i.toString(), {
                 solved: false,
                 timestamp: new Date()
@@ -168,7 +168,23 @@ router.get('/getscoreboard', fetchuser, async (req, res) => {
         let userData = await User.find()
         tempData = []
         userData.forEach(item => {
-            tempData.push({ name: item.name, points: item.points })
+            let maxTimestamp = 0;
+            for (let i = 1; i <= 30; i++) {
+                if (item.questions.get(i.toString()).solved && item.questions.get(i.toString()).timestamp > maxTimestamp){
+                    maxTimestamp = item.questions.get(i.toString()).timestamp;
+                }
+            };
+            tempData.push({ name: item.name, points: item.points, maxTimestamp })
+        })
+        tempData.sort((a, b) => {
+            if (a.points !== b.points) {
+                return b.points - a.points;
+            } else {
+                const timestampA = new Date(a.maxTimestamp);
+                const timestampB = new Date(b.maxTimestamp);
+                
+                return timestampA - timestampB;
+            }
         })
 
         success = true;
