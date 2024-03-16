@@ -2,6 +2,8 @@ const express = require('express')
 var cors = require('cors')
 const path = require('path')
 const app = express();
+const dotenv = require('dotenv');
+dotenv.config();
 const port = 5000;
 
 app.use(cors());
@@ -40,7 +42,7 @@ app.listen(port, () => {
 })
 
 const mongoose = require('mongoose');
-const mongoURI = "mongodb+srv://farman:farmansk%40786@cluster0.hayzr7h.mongodb.net/invaders0x1"
+const mongoURI = process.env.MONGODB_URI;
 // const mongoURI = "mongodb://localhost:27017/invaders0x1"
 
 mongoose.connect(mongoURI, () => {
